@@ -80,11 +80,11 @@ cliente.rpc("minha_funcao_com_param", {"param1": "valor"})
 
 
 🛠️ Requisitos
+```bash
 Python 3.8 ou superior
-
 supabase-py
-
 python-dotenv
+```
 
 🔒 Licença
 Este projeto está licenciado sob a Licença MIT - veja o arquivo LICENSE para detalhes.
