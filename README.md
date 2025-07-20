@@ -94,7 +94,7 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo LICENSE para d
 🙌 Créditos
 ```
 Criado e mantido por Matheus Brito.
-**Caso utilize este pacote ou parte do seu código, mencione o autor para manter os créditos.**
+Caso utilize este pacote ou parte do seu código, mencione o autor para manter os créditos.
 ```
 
 
