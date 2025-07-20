@@ -44,8 +44,41 @@ pip install .
 ⚙️ Configuração
 Crie um arquivo .env na raiz do seu projeto com:
 
+```bash
 SUPABASE_URL=your-supabase-url
 SUPABASE_KEY=your-supabase-api-key
+```
+
+
+🚀 Alguns Exemplos de Uso
+Conectar ao cliente
+```bash
+from supcliente import get_supabase_client
+```
+cliente = get_supabase_client()
+Inserir dados
+```bash
+dados = {"nome": "João", "idade": 30}
+cliente.salvar("usuarios", dados)
+```
+Buscar registros com filtros
+```bash
+cliente.buscar("usuarios", filtros={"idade": 30}, ordenar_por="nome")
+```
+Buscar por colunas específicas
+```bash
+cliente.buscar_por_colunas("usuarios", colunas=["nome", "idade"])
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
