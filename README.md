@@ -70,9 +70,29 @@ Buscar por colunas específicas
 cliente.buscar_por_colunas("usuarios", colunas=["nome", "idade"])
 ```
 
+```bash
+cliente.rpc_no_param("minha_funcao")
+cliente.rpc("minha_funcao_com_param", {"param1": "valor"})
+```
 
 
+...
 
+
+🛠️ Requisitos
+Python 3.8 ou superior
+
+supabase-py
+
+python-dotenv
+
+🔒 Licença
+Este projeto está licenciado sob a Licença MIT - veja o arquivo LICENSE para detalhes.
+
+🙌 Créditos
+Criado e mantido por Matheus Brito.
+
+Caso utilize este pacote ou parte do seu código, mencione o autor para manter os créditos.
 
 
 
