@@ -217,3 +217,8 @@ class Sup_Cliente:
         except Exception as e:
             print(f"⚠️ Ocorreu um erro ao tentar buscar os dados: {e}")
             return []
+
+
+
+def get_supabase_client():
+    return Sup_Cliente()
