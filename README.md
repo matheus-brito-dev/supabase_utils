@@ -31,3 +31,22 @@ Para instalar via pip diretamente do GitHub:
 
 ```bash
 pip install git+https://github.com/seuusuario/supcliente.git
+
+```
+ou clone o repositório
+
+```bash
+git clone https://github.com/seuusuario/supcliente.git
+cd supcliente
+pip install .
+```
+
+⚙️ Configuração
+Crie um arquivo .env na raiz do seu projeto com:
+
+SUPABASE_URL=your-supabase-url
+SUPABASE_KEY=your-supabase-api-key
+
+
+
+
