@@ -1,4 +1,4 @@
-SupCliente: Cliente Singleton Genérico para Supabase em Python
+#SupCliente: Cliente Singleton Genérico para Supabase em Python#
 Autor: Matheus Brito
 Licença: MIT
 
