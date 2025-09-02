@@ -218,29 +218,20 @@ class Sup_Cliente:
             print(f"⚠️ Ocorreu um erro ao tentar buscar os dados: {e}")
             return []
 
-    def update(self, tabela: str, dados: dict, filtros: dict = None, ordenar_por: str = None, ordem: str = "asc",
-               limite: int = None):
+    def update(self, tabela: str, dados: dict, filtros: dict = None):
         """
         Atualiza registros em uma tabela do Supabase.
         """
         try:
-            query = self.supabase.table(tabela)
+            query = self.supabase.table(tabela).update(dados)
 
             # Aplica os filtros, se existirem
             if filtros:
                 for campo, valor in filtros.items():
-                    query = query.eq(campo, valor)  # usa eq em vez de filter
-
-            # Adiciona ordenação, se especificada
-            if ordenar_por:
-                query = query.order(ordenar_por, desc=(ordem == "desc"))
-
-            # Limita o número de registros, se especificado
-            if limite:
-                query = query.limit(limite)
+                    query = query.filter(campo, "eq", valor)
 
             # Executa o update
-            response = query.update(dados).execute()
+            response = query.execute()
 
             if hasattr(response, "error") and response.error:
                 print(f"⚠️ Erro ao atualizar dados: {response.error}")
