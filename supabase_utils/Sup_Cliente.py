@@ -237,7 +237,7 @@ class Sup_Cliente:
             # Aplica os filtros, se existirem
             if filtros:
                 for campo, valor in filtros.items():
-                    query = query.eq(campo, valor)
+                    query = query.filter(campo, valor)
 
             # Adiciona ordenação, se especificada
             if ordenar_por:
