@@ -218,6 +218,30 @@ class Sup_Cliente:
             print(f"⚠️ Ocorreu um erro ao tentar buscar os dados: {e}")
             return []
 
+    def update(self, tabela: str, dados: dict, filtros: dict = None, ordenar_por: str = None):
+        """
+        Atualiza registros em uma tabela do Supabase.
+
+        :param tabela: nome da tabela
+        :param dados: dicionário com os campos a atualizar e seus novos valores
+        :param filtros: dicionário com filtros (coluna: valor)
+        :param ordenar_por: coluna para ordenar (opcional, usado para limitar update)
+        :return: resultado do update
+        """
+        query = self.supabase.table(tabela)
+
+        # Aplicar filtros
+        if filtros:
+            for coluna, valor in filtros.items():
+                query = query.eq(coluna, valor)
+
+        # Aplicar ordenação (opcional)
+        if ordenar_por:
+            query = query.order(ordenar_por, ascending=True)
+
+        # Executa o update
+        result = query.update(dados).execute()
+        return result.data
 
 
 def get_supabase_client():
