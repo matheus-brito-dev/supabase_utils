@@ -222,14 +222,6 @@ class Sup_Cliente:
                limite: int = None):
         """
         Atualiza registros em uma tabela do Supabase.
-
-        :param tabela: nome da tabela
-        :param dados: dicionário com os campos a atualizar e seus novos valores
-        :param filtros: dicionário com filtros (coluna: valor)
-        :param ordenar_por: coluna para ordenar (opcional)
-        :param ordem: 'asc' ou 'desc' para ordenação
-        :param limite: número máximo de registros a atualizar (opcional)
-        :return: lista com os registros atualizados ou vazia
         """
         try:
             query = self.supabase.table(tabela)
@@ -237,7 +229,7 @@ class Sup_Cliente:
             # Aplica os filtros, se existirem
             if filtros:
                 for campo, valor in filtros.items():
-                    query = query.filter(campo, valor)
+                    query = query.eq(campo, valor)  # usa eq em vez de filter
 
             # Adiciona ordenação, se especificada
             if ordenar_por:
@@ -250,12 +242,10 @@ class Sup_Cliente:
             # Executa o update
             response = query.update(dados).execute()
 
-            # Verifica se houve erro na resposta
             if hasattr(response, "error") and response.error:
                 print(f"⚠️ Erro ao atualizar dados: {response.error}")
                 return []
 
-            # Retorna os dados atualizados ou lista vazia
             return response.data if hasattr(response, "data") and response.data else []
 
         except Exception as e:
