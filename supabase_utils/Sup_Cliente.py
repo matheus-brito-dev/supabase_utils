@@ -218,30 +218,49 @@ class Sup_Cliente:
             print(f"⚠️ Ocorreu um erro ao tentar buscar os dados: {e}")
             return []
 
-    def update(self, tabela: str, dados: dict, filtros: dict = None, ordenar_por: str = None):
+    def update(self, tabela: str, dados: dict, filtros: dict = None, ordenar_por: str = None, ordem: str = "asc",
+               limite: int = None):
         """
         Atualiza registros em uma tabela do Supabase.
 
         :param tabela: nome da tabela
         :param dados: dicionário com os campos a atualizar e seus novos valores
         :param filtros: dicionário com filtros (coluna: valor)
-        :param ordenar_por: coluna para ordenar (opcional, usado para limitar update)
-        :return: resultado do update
+        :param ordenar_por: coluna para ordenar (opcional)
+        :param ordem: 'asc' ou 'desc' para ordenação
+        :param limite: número máximo de registros a atualizar (opcional)
+        :return: lista com os registros atualizados ou vazia
         """
-        query = self.supabase.table(tabela)
+        try:
+            query = self.supabase.table(tabela)
 
-        # Aplicar filtros
-        if filtros:
-            for coluna, valor in filtros.items():
-                query = query.eq(coluna, valor)
+            # Aplica os filtros, se existirem
+            if filtros:
+                for campo, valor in filtros.items():
+                    query = query.eq(campo, valor)
 
-        # Aplicar ordenação (opcional)
-        if ordenar_por:
-            query = query.order(ordenar_por, ascending=True)
+            # Adiciona ordenação, se especificada
+            if ordenar_por:
+                query = query.order(ordenar_por, desc=(ordem == "desc"))
 
-        # Executa o update
-        result = query.update(dados).execute()
-        return result.data
+            # Limita o número de registros, se especificado
+            if limite:
+                query = query.limit(limite)
+
+            # Executa o update
+            response = query.update(dados).execute()
+
+            # Verifica se houve erro na resposta
+            if hasattr(response, "error") and response.error:
+                print(f"⚠️ Erro ao atualizar dados: {response.error}")
+                return []
+
+            # Retorna os dados atualizados ou lista vazia
+            return response.data if hasattr(response, "data") and response.data else []
+
+        except Exception as e:
+            print(f"⚠️ Ocorreu um erro ao tentar atualizar os dados: {e}")
+            return []
 
 
 def get_supabase_client():
